@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int n, m, ors, incMax, no_concert;
+int da[21], nu[21];
+
+vector<int> concert;
+vector<int> inc;
+
+char mes;
+
+int main()
+{
+    cin >> n >> m;
+    
+    for(int i = 1; i <= m; i ++){
+        cin >> mes >> ors;
+        
+        if(mes == 'D'){
+            da[ors] ++;
+        }
+        else if(mes == 'N'){
+            nu[ors] ++;
+        }
+    }
+    
+    for(int i = 1; i <= n; i ++){
+        if(da[i] + nu[i] > incMax){
+            incMax = da[i] + nu[i];
+            inc.clear();
+            inc.push_back(i);
+        }
+        else if(da[i] + nu[i] == incMax){
+            inc.push_back(i);
+        }
+        
+        if(da[i] > nu[i]){
+            concert.push_back(i);
+        }
+        else if(nu[i] == 0 and da[i] == 0){
+            no_concert ++;
+        }
+    }
+    
+    for(const auto& i : concert){
+        cout << i << ' ';
+    }
+    
+    cout << '\n';
+    
+    for(const auto& i : inc){
+        cout << i << ' ';
+    }
+    
+    cout << '\n';
+    
+    cout << no_concert;
+
+    return 0;
+}
